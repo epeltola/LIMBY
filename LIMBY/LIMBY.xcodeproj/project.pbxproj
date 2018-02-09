@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5B6C90674B80BECF696B12BD /* Pods_LIMBY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */; };
 		9A123C23202435F300129008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C22202435F300129008 /* AppDelegate.swift */; };
-		9A123C25202435F300129008 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C24202435F300129008 /* ViewController.swift */; };
+		9A123C25202435F300129008 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C24202435F300129008 /* GraphViewController.swift */; };
 		9A123C28202435F300129008 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A123C26202435F300129008 /* Main.storyboard */; };
 		9A123C2B202435F300129008 /* LIMBY.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C29202435F300129008 /* LIMBY.xcdatamodeld */; };
 		9A123C2D202435F300129008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A123C2C202435F300129008 /* Assets.xcassets */; };
@@ -41,7 +41,7 @@
 		99B86B6FF52A93EC22FD8633 /* Pods-LIMBY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.release.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.release.xcconfig"; sourceTree = "<group>"; };
 		9A123C1F202435F300129008 /* LIMBY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIMBY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A123C22202435F300129008 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9A123C24202435F300129008 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9A123C24202435F300129008 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		9A123C27202435F300129008 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A123C2A202435F300129008 /* LIMBY.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LIMBY.xcdatamodel; sourceTree = "<group>"; };
 		9A123C2C202435F300129008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				9A123C22202435F300129008 /* AppDelegate.swift */,
-				9A123C24202435F300129008 /* ViewController.swift */,
+				9A123C24202435F300129008 /* GraphViewController.swift */,
 				9A123C26202435F300129008 /* Main.storyboard */,
 				9A123C2C202435F300129008 /* Assets.xcassets */,
 				9A123C2E202435F300129008 /* LaunchScreen.storyboard */,
@@ -349,7 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A123C25202435F300129008 /* ViewController.swift in Sources */,
+				9A123C25202435F300129008 /* GraphViewController.swift in Sources */,
 				9A123C23202435F300129008 /* AppDelegate.swift in Sources */,
 				9A123C2B202435F300129008 /* LIMBY.xcdatamodeld in Sources */,
 			);

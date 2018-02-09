@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GraphViewController.swift
 //  LIMBY
 //
 //  Created by Nathan Tsai on 2/1/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GraphViewController: UIViewController {
 
     @IBOutlet weak var segmentController: UISegmentedControl!
 
