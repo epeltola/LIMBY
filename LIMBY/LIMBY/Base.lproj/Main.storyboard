@@ -10,40 +10,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Graph View Controller-->
+        <!--Line Chart View Controller-->
         <scene sceneID="1Pd-2v-cYp">
             <objects>
-                <viewController id="y3i-BN-iVI" customClass="GraphViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Kzg-1W-fof">
+                <viewController id="y3i-BN-iVI" customClass="LineChartViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kzg-1W-fof" customClass="LineChartView" customModule="Charts">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dne-fE-GeE">
                                 <rect key="frame" x="0.0" y="64" width="375" height="283"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1yi-y9-EkH">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="283"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyO-hf-y9C">
-                                                <rect key="frame" x="0.0" y="0.0" width="125" height="283"/>
-                                                <state key="normal" title="&lt;"/>
-                                                <connections>
-                                                    <action selector="leftArrow:" destination="y3i-BN-iVI" eventType="touchUpInside" id="j4m-Ou-3Lr"/>
-                                                </connections>
-                                            </button>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ge9-hs-VlI">
-                                                <rect key="frame" x="125" y="0.0" width="125" height="283"/>
-                                            </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlh-Lp-QHM">
-                                                <rect key="frame" x="250" y="0.0" width="125" height="283"/>
-                                                <state key="normal" title="&gt;"/>
-                                                <connections>
-                                                    <action selector="rightArrow:" destination="y3i-BN-iVI" eventType="touchUpInside" id="8MH-Q4-hou"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGq-eB-gy2">
                                 <rect key="frame" x="123" y="597" width="129" height="30"/>
@@ -52,26 +29,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="disconnectDevice:" destination="y3i-BN-iVI" eventType="touchUpInside" id="RFZ-Ie-QQX"/>
-                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="average weight: x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfH-nN-sHs">
-                                <rect key="frame" x="120.5" y="367" width="134" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.062214739620685577" green="0.56600600481033325" blue="0.74111294746398926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="highlightedColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.062214739620685577" green="0.56600600481033325" blue="0.74111294746398926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="TfH-nN-sHs" firstAttribute="centerX" secondItem="QMW-61-eIR" secondAttribute="centerX" id="CQm-Tb-2Xg"/>
                             <constraint firstItem="QMW-61-eIR" firstAttribute="bottom" secondItem="eGq-eB-gy2" secondAttribute="bottom" constant="40" id="KaY-Up-sM0"/>
                             <constraint firstItem="dne-fE-GeE" firstAttribute="leading" secondItem="QMW-61-eIR" secondAttribute="leading" id="V3H-m8-ggP"/>
                             <constraint firstAttribute="bottom" secondItem="dne-fE-GeE" secondAttribute="bottom" constant="320" id="a2D-3R-rwj"/>
                             <constraint firstItem="eGq-eB-gy2" firstAttribute="centerX" secondItem="QMW-61-eIR" secondAttribute="centerX" id="dzq-QS-sqC"/>
-                            <constraint firstItem="TfH-nN-sHs" firstAttribute="top" secondItem="dne-fE-GeE" secondAttribute="bottom" constant="20" id="goO-Rt-sKd"/>
                             <constraint firstItem="QMW-61-eIR" firstAttribute="trailing" secondItem="dne-fE-GeE" secondAttribute="trailing" id="lzX-yO-r3L"/>
                             <constraint firstItem="dne-fE-GeE" firstAttribute="top" secondItem="QMW-61-eIR" secondAttribute="top" id="yAV-oD-Uh4"/>
                         </constraints>
@@ -79,7 +45,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="zrK-Yr-N9D">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="snl-YE-BZZ" userLabel="Day, Week, Month, Year">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="snl-YE-BZZ" userLabel="segmentedController">
                             <rect key="frame" x="66" y="7" width="243" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
@@ -89,13 +55,11 @@
                                 <segment title="Year"/>
                             </segments>
                             <color key="tintColor" red="0.061272222842494638" green="0.56768261597906833" blue="0.74302030456852797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="timeScale:" destination="y3i-BN-iVI" eventType="valueChanged" id="8Gx-cQ-PkT"/>
-                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>
-                        <outlet property="segmentController" destination="snl-YE-BZZ" id="Yhi-qk-F2V"/>
+                        <outlet property="lineChartView" destination="Kzg-1W-fof" id="rdv-jZ-UCH"/>
+                        <outlet property="segmentedController" destination="snl-YE-BZZ" id="4cz-Kf-hqc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iNe-hU-tNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
