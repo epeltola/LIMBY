@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B6C90674B80BECF696B12BD /* Pods_LIMBY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */; };
 		9A123C23202435F300129008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C22202435F300129008 /* AppDelegate.swift */; };
 		9A123C25202435F300129008 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C24202435F300129008 /* ViewController.swift */; };
 		9A123C28202435F300129008 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A123C26202435F300129008 /* Main.storyboard */; };
@@ -35,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		48E95F57CB4925E6BD26D6F5 /* Pods-LIMBY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.debug.xcconfig"; sourceTree = "<group>"; };
+		74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LIMBY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		99B86B6FF52A93EC22FD8633 /* Pods-LIMBY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.release.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.release.xcconfig"; sourceTree = "<group>"; };
 		9A123C1F202435F300129008 /* LIMBY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIMBY.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A123C22202435F300129008 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A123C24202435F300129008 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B6C90674B80BECF696B12BD /* Pods_LIMBY.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +88,8 @@
 				9A123C39202435F400129008 /* LIMBYTests */,
 				9A123C44202435F400129008 /* LIMBYUITests */,
 				9A123C20202435F300129008 /* Products */,
+				9C375A4FB9CF30F405B685DF /* Pods */,
+				EB3C5CF53315512612FBBE6E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +135,23 @@
 			path = LIMBYUITests;
 			sourceTree = "<group>";
 		};
+		9C375A4FB9CF30F405B685DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				48E95F57CB4925E6BD26D6F5 /* Pods-LIMBY.debug.xcconfig */,
+				99B86B6FF52A93EC22FD8633 /* Pods-LIMBY.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EB3C5CF53315512612FBBE6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A123C4A202435F400129008 /* Build configuration list for PBXNativeTarget "LIMBY" */;
 			buildPhases = (
+				E3AA05C33C86FCF20CEE7356 /* [CP] Check Pods Manifest.lock */,
 				9A123C1B202435F300129008 /* Sources */,
 				9A123C1C202435F300129008 /* Frameworks */,
 				9A123C1D202435F300129008 /* Resources */,
+				F39C012F906612608351765B /* [CP] Embed Pods Frameworks */,
+				6EC38F5DCB6271A2FD128A21 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,6 +283,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6EC38F5DCB6271A2FD128A21 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3AA05C33C86FCF20CEE7356 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LIMBY-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F39C012F906612608351765B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/Particle-SDK/Particle_SDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Particle_SDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9A123C1B202435F300129008 /* Sources */ = {
@@ -428,11 +515,13 @@
 		};
 		9A123C4B202435F400129008 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48E95F57CB4925E6BD26D6F5 /* Pods-LIMBY.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QDXV9N79EB;
 				INFOPLIST_FILE = LIMBY/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nwtsai.LIMBY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -443,11 +532,13 @@
 		};
 		9A123C4C202435F400129008 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99B86B6FF52A93EC22FD8633 /* Pods-LIMBY.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QDXV9N79EB;
 				INFOPLIST_FILE = LIMBY/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nwtsai.LIMBY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
