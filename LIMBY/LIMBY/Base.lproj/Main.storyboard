@@ -13,25 +13,68 @@
         <!--View Controller-->
         <scene sceneID="1Pd-2v-cYp">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iNe-hU-tNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="y3i-BN-iVI" customClass="ViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kzg-1W-fof">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hello World!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfH-nN-sHs">
-                                <rect key="frame" x="143" y="323" width="118" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="average weight: x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfH-nN-sHs">
+                                <rect key="frame" x="119" y="429" width="137" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGq-eB-gy2">
+                                <rect key="frame" x="123" y="493" width="129" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.92864412123260853" blue="0.046146487424812532" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Disconnect Device"/>
+                                <connections>
+                                    <action selector="disconnectDevice:" destination="y3i-BN-iVI" eventType="touchUpInside" id="RFZ-Ie-QQX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cyO-hf-y9C">
+                                <rect key="frame" x="16" y="226" width="43" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="&lt;-"/>
+                                <connections>
+                                    <action selector="leftArrow:" destination="y3i-BN-iVI" eventType="touchUpInside" id="j4m-Ou-3Lr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlh-Lp-QHM">
+                                <rect key="frame" x="316" y="226" width="43" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="-&gt;"/>
+                                <connections>
+                                    <action selector="rightArrow:" destination="y3i-BN-iVI" eventType="touchUpInside" id="8MH-Q4-hou"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="QMW-61-eIR"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zrK-Yr-N9D"/>
+                    <navigationItem key="navigationItem" id="zrK-Yr-N9D">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="snl-YE-BZZ" userLabel="Day, Week, Month, Year">
+                            <rect key="frame" x="66" y="7" width="243" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Day"/>
+                                <segment title="Week"/>
+                                <segment title="Month"/>
+                                <segment title="Year"/>
+                            </segments>
+                            <connections>
+                                <action selector="timeScale:" destination="y3i-BN-iVI" eventType="valueChanged" id="8Gx-cQ-PkT"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="segmentController" destination="snl-YE-BZZ" id="Yhi-qk-F2V"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iNe-hU-tNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1048.8" y="384.55772113943033"/>
         </scene>
