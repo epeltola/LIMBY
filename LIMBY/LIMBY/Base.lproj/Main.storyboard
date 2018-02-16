@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K3q-qr-itc">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,38 +15,16 @@
             <objects>
                 <viewController id="y3i-BN-iVI" customClass="LineChartViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kzg-1W-fof" customClass="LineChartView" customModule="Charts">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dne-fE-GeE">
-                                <rect key="frame" x="0.0" y="64" width="375" height="283"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGq-eB-gy2">
-                                <rect key="frame" x="123" y="597" width="129" height="30"/>
-                                <color key="backgroundColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Disconnect Device">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.062214739620685577" green="0.56600600481033325" blue="0.74111294746398926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="QMW-61-eIR" firstAttribute="bottom" secondItem="eGq-eB-gy2" secondAttribute="bottom" constant="40" id="KaY-Up-sM0"/>
-                            <constraint firstItem="dne-fE-GeE" firstAttribute="leading" secondItem="QMW-61-eIR" secondAttribute="leading" id="V3H-m8-ggP"/>
-                            <constraint firstAttribute="bottom" secondItem="dne-fE-GeE" secondAttribute="bottom" constant="320" id="a2D-3R-rwj"/>
-                            <constraint firstItem="eGq-eB-gy2" firstAttribute="centerX" secondItem="QMW-61-eIR" secondAttribute="centerX" id="dzq-QS-sqC"/>
-                            <constraint firstItem="QMW-61-eIR" firstAttribute="trailing" secondItem="dne-fE-GeE" secondAttribute="trailing" id="lzX-yO-r3L"/>
-                            <constraint firstItem="dne-fE-GeE" firstAttribute="top" secondItem="QMW-61-eIR" secondAttribute="top" id="yAV-oD-Uh4"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="QMW-61-eIR"/>
+                        <viewLayoutGuide key="safeArea" id="x2b-ZJ-xch"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="zrK-Yr-N9D">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="snl-YE-BZZ" userLabel="segmentedController">
-                            <rect key="frame" x="66" y="7" width="243" height="30"/>
+                            <rect key="frame" x="38.5" y="7" width="243" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Day"/>
@@ -70,8 +48,8 @@
         <scene sceneID="oB8-Y4-CW3">
             <objects>
                 <navigationController id="K3q-qr-itc" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7Re-zk-2Tt">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="7Re-zk-2Tt">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
