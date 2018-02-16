@@ -12,6 +12,11 @@ import Charts
 
 class LineChartViewController: UIViewController, UITextFieldDelegate {
 
+    static let LEGEND_SQUARE_SIZE = CGFloat(16)
+    static let CHART_FONT = UIFont.systemFont(ofSize: 11);
+    static let LABEL_COUNT = 9
+    static let NATHANS_CONSTANT = CGFloat(17)
+    
     @IBOutlet var lineChartView: LineChartView!
     @IBOutlet weak var segmentedController: UISegmentedControl!
     
@@ -22,101 +27,75 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let sampleData = [1.0, 5.0, 3.0, 2.0, 4.0]
+        let sampleData = [1.0, 5.0, 3.0, 2.0, 4.0, 1.0, 5.0, 3.0, 2.0]
         setLineChart(timeRange: segmentedController.selectedSegmentIndex,
                      values: sampleData)
     }
     
     func setLineChart(timeRange: Int, values: [Double]) {
 
+        // Custom x-axis labels
+        let times = ["12 AM", "3 AM", "6 AM", "9 AM",
+                     "12 PM", "3 PM", "6 PM", "9 PM", "12 AM"]
+        lineChartView.xAxis.valueFormatter =
+            IndexAxisValueFormatter(values: times)
+        lineChartView.xAxis.granularity = 1
+        
         // Process data
         var dataEntries: [ChartDataEntry] = []
         for i in 0..<values.count {
             dataEntries.append(ChartDataEntry(x: Double(i), y: values[i]))
-            // let _ = barChartFormatter.stringForValue(Double(i), axis: xAxis)
         }
-        let dataSet = LineChartDataSet(values: dataEntries, label: "Bird 1")
+        let dataSet = LineChartDataSet(values: dataEntries,
+                                       label: "Bird 1 weight (g)")
+        dataSet.colors = [ChartColorTemplates.liberty()[3]]
         dataSet.axisDependency = .left
+        dataSet.drawCirclesEnabled = false
         
         // Add data
         lineChartView.data = LineChartData(dataSet: dataSet)
-        lineChartView.data?.setValueFont(UIFont.systemFont(ofSize: 11))
+        lineChartView.data!.setDrawValues(false)
+        lineChartView.data!.setValueFont(LineChartViewController.CHART_FONT)
         
-        // Other code
-        // ---------------------------------------------------------------------
-        
-        // let barChartFormatter:BarChartFormatterWeek = BarChartFormatterWeek()
-        // let xAxis:XAxis = XAxis()
-        
-        // xAxis.valueFormatter = barChartFormatter
-        // barGraphView.xAxis.valueFormatter = xAxis.valueFormatter
-        
-        // Set a limit line to be the average amount spent in that week
-        // let average = BudgetVariables.calculateAverage(nums: values)
-        
-        // Remove the average line from the previous graph
-        //lineChartView.rightAxis.removeAllLimitLines();
-        
-        // Only add the average line if there is actually data in the bar graph
-        /*if average != 0.0
-        {
-            let ll = ChartLimitLine(limit: average, label: "Average: " + BudgetVariables.numFormat(myNum: average))
-            ll.lineColor = BudgetVariables.hexStringToUIColor(hex: "092140")
-            ll.valueFont = UIFont.systemFont(ofSize: 12)
-            ll.lineWidth = 2
+        // Average line
+        lineChartView.leftAxis.removeAllLimitLines()
+        let average = 3.0
+        if average > 0.0 {
+            let ll = ChartLimitLine(limit: average,
+                                    label: "Average: " + String(average))
+            ll.lineColor = UIColor.black
+            ll.valueFont = LineChartViewController.CHART_FONT
+            ll.lineWidth = 1
             ll.labelPosition = .leftTop
-            barGraphView.rightAxis.addLimitLine(ll)
-        }*/
-        
-        // Select the color scheme
-        // chartDataSet.colors = ColorArray[BudgetVariables.budgetArray[BudgetVariables.currentIndex].barGraphColor]
-        
-        // Defaults
-        //lineChartView.data?.setDrawValues(false)
-        
-        /*if BudgetVariables.budgetArray[BudgetVariables.currentIndex].historyArray.isEmpty == true || BudgetVariables.isAllZeros(array: values) == true {
-            chartData.setDrawValues(false)
-            barGraphView.rightAxis.drawLabelsEnabled = false
-        }*/
-        
-        // Set where axis starts
-        //lineChartView.setScaleMinima(0, scaleY: 0.0)
-        
-        /* let format = NumberFormatter()
-        format.numberStyle = .currency
-        let formatter = DefaultValueFormatter(formatter: format)
-        chartData.setValueFormatter(formatter) */
-        
-        // Force all 7 x axis labels to show up
-        // barGraphView.xAxis.setLabelCount(7, force: false)
-        // ---------------------------------------------------------------------
-
+            lineChartView.leftAxis.addLimitLine(ll)
+        }
         
         // x-axis
-        //lineChartView.xAxis.axisMinimum = 0
-        //lineChartView.xAxis.drawLabelsEnabled = true
-        lineChartView.xAxis.labelFont = UIFont.systemFont(ofSize: 11)
-        //lineChartView.xAxis.drawGridLinesEnabled = false
+        lineChartView.xAxis.axisMinimum = 0
+        lineChartView.xAxis.labelCount = 10
+        lineChartView.xAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.xAxis.labelPosition = .bottom
+        lineChartView.xAxis.labelRotationAngle = -45
         
         // Left y-axis
         lineChartView.leftAxis.axisMinimum = 0
-        //lineChartView.leftAxis.drawLabelsEnabled = false
-        lineChartView.leftAxis.labelFont = UIFont.systemFont(ofSize: 11)
-        //lineChartView.leftAxis.drawGridLinesEnabled = false
-        //lineChartView.leftAxis.spaceBottom = 0
+        lineChartView.leftAxis.labelCount = LineChartViewController.LABEL_COUNT
+        lineChartView.leftAxis.labelFont = LineChartViewController.CHART_FONT
  
         // Right y-axis
-        //lineChartView.rightAxis.axisMinimum = 0
         lineChartView.rightAxis.drawLabelsEnabled = false
-        //lineChartView.rightAxis.labelFont = UIFont.systemFont(ofSize: 11)
         lineChartView.rightAxis.drawGridLinesEnabled = false
-        //lineChartView.rightAxis.spaceBottom = 0
         
         // Description & legend
-        lineChartView.chartDescription?.text = "This is the description."
-        lineChartView.legend.font = UIFont.systemFont(ofSize: 11)
-        //lineChartView.legend.formSize = 8
+        lineChartView.chartDescription?.text = ""
+        lineChartView.legend.font = LineChartViewController.CHART_FONT
+        lineChartView.legend.formSize = LineChartViewController.LEGEND_SQUARE_SIZE
+        
+        // Margins
+        lineChartView.extraLeftOffset = LineChartViewController.NATHANS_CONSTANT / 2
+        lineChartView.extraRightOffset = LineChartViewController.NATHANS_CONSTANT
+        lineChartView.extraTopOffset = LineChartViewController.NATHANS_CONSTANT
+        lineChartView.extraBottomOffset = LineChartViewController.NATHANS_CONSTANT
         
         // Interaction
         lineChartView.backgroundColor = UIColor.white
