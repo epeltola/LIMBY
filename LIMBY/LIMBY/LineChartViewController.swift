@@ -127,4 +127,29 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         // Animate
         lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
     }
+    
+    // Modify line chart whenever segment index changes
+    @IBAction func segmentChanged(_ sender: Any) {
+        let index = segmentedController.selectedSegmentIndex
+        switch index {
+        case 0:
+            let sampleData = [1.0, 5.0, 3.0, 2.0, 4.0]
+            setLineChart(timeRange: segmentedController.selectedSegmentIndex,
+                         values: sampleData)
+        case 1:
+            let sampleData = [5.0, 3.0, 2.0, 4.0, 1.0]
+            setLineChart(timeRange: segmentedController.selectedSegmentIndex,
+                         values: sampleData)
+        case 2:
+            let sampleData = [3.0, 2.0, 4.0, 1.0, 5.0]
+            setLineChart(timeRange: segmentedController.selectedSegmentIndex,
+                         values: sampleData)
+        case 3:
+            let sampleData = [2.0, 4.0, 1.0, 5.0, 3.0]
+            setLineChart(timeRange: segmentedController.selectedSegmentIndex,
+                         values: sampleData)
+        default:
+            print("Invalid segment index")
+        }
+    }
 }

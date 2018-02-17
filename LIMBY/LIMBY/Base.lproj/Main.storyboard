@@ -33,6 +33,9 @@
                                 <segment title="Year"/>
                             </segments>
                             <color key="tintColor" red="0.061272222842494638" green="0.56768261597906833" blue="0.74302030456852797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="segmentChanged:" destination="y3i-BN-iVI" eventType="valueChanged" id="f7c-hs-JDW"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>
