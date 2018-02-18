@@ -21,13 +21,21 @@ func eprint(message : String) {
     print(message, to: &standardError)
 }
 
-var queue : [String] = []
-
-class ViewController: UIViewController {
+/**
+ A Singleton class for data queue feeds. Requires a login onto the particle device and the queue
+ will be asynchronously filled with data.
+ */
+class DataQueue {
+    static let singleton = DataQueue()
+    var queue : [String] = []
+    private init(){ /* Singletons should be private ctor'd */ }
+    func getSingleton() -> DataQueue { return self }
+    
     enum ParticleError: Error{
         case loginError
         case logicError
     }
+    
     func login(username : String, password : String) -> Bool {
         var success : Bool = true
         ParticleCloud.sharedInstance().login(withUser: username, password: password) { (error:Error?) -> Void in
@@ -75,7 +83,7 @@ class ViewController: UIViewController {
                     if let event = eventOpt{
                         if let eventData = event.data {
                             eprint(message: "got event with data \(eventData)")
-                            queue.append(eventData)
+                            self.queue.append(eventData)
                         }
                     }
                     else{
@@ -85,12 +93,16 @@ class ViewController: UIViewController {
             }
         })
     }
+}
+
+class ViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let status : Bool = login(username: "peifeng2005@gmail.com", password: "peifeng2005")
+        let status : Bool = DataQueue.getSingleton().login(username: "peifeng2005@gmail.com", password: "peifeng2005")
         
         if status {
-            subscribe(prefix: "weight")
+            DataQueue.getSingleton().subscribe(prefix: "weight")
         }
         else {
             eprint(message: "Unable to log in. Exiting.")
