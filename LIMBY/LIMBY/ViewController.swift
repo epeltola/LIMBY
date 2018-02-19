@@ -29,7 +29,6 @@ class DataQueue {
     static let singleton = DataQueue()
     var queue : [String] = []
     private init(){ /* Singletons should be private ctor'd */ }
-    func getSingleton() -> DataQueue { return self }
     
     enum ParticleError: Error{
         case loginError
@@ -99,10 +98,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let status : Bool = DataQueue.getSingleton().login(username: "peifeng2005@gmail.com", password: "peifeng2005")
+        let status : Bool = DataQueue.singleton.login(username: "peifeng2005@gmail.com", password: "peifeng2005")
         
         if status {
-            DataQueue.getSingleton().subscribe(prefix: "weight")
+            DataQueue.singleton.subscribe(prefix: "weight")
         }
         else {
             eprint(message: "Unable to log in. Exiting.")
