@@ -41,12 +41,21 @@ class DataQueue {
             if let _ = error {
                 eprint(message: "Wrong credentials or no internet connectivity, please try again")
                 success = false
+                callFunc()
             }
             else {
                 eprint(message: "Logged in")
+                callErrorFunc()
             }
         }
-        return success
+    }
+    
+    func callFunc() -> Void {
+        eprint("Hello!")
+    }
+    
+    func callErrorFunc() -> Void{
+        eprint("Error!")
     }
     
     func checkExist(deviceName : String) -> Bool {
@@ -78,7 +87,7 @@ class DataQueue {
                 eprint (message: "could not subscribe to events")
             } else {
                 let serialQueue = DispatchQueue(label: "getWeight")
-                serialQueue.sync(execute: {
+                serialQueue.async(execute: {
                     if let event = eventOpt{
                         if let eventData = event.data {
                             eprint(message: "got event with data \(eventData)")
