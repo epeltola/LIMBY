@@ -27,10 +27,10 @@
                             <rect key="frame" x="38.5" y="7" width="243" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
+                                <segment title="Minute"/>
                                 <segment title="Day"/>
                                 <segment title="Week"/>
                                 <segment title="Month"/>
-                                <segment title="Year"/>
                             </segments>
                             <color key="tintColor" red="0.061272222842494638" green="0.56768261597906833" blue="0.74302030456852797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

@@ -35,6 +35,8 @@ class ParticleDataPoint {
     func toChartDataEntry(timeRange: LineChartViewController.TimeRange) -> ChartDataEntry {
         var x = 0.0
         switch timeRange {
+        case .minute:
+            x = self.date.timeIntervalSince(daysAgo(0)).truncatingRemainder(dividingBy: 60.0)
         case .day:
             x = self.date.timeIntervalSince(daysAgo(0)) / 3600.0
         case .week:
@@ -69,9 +71,10 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // View will appear actions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let _ = DataQueue.singleton.login(
-            username: "peifeng2005@gmail.com", password: "peifeng2005")
-        DataQueue.singleton.subscribe(prefix: "weight", lcvc: self)
+        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+        //let _ = DataQueue.singleton.login(
+        //    username: "peifeng2005@gmail.com", password: "peifeng2005")
+        //DataQueue.singleton.subscribe(prefix: "weight", lcvc: self)
         plotLineChart(plotMode: PlotMode.initial)
     }
     
@@ -85,14 +88,13 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // Segment selector instance
     @IBOutlet weak var segmentedController: UISegmentedControl!
     enum TimeRange: Int {
-        case day = 0
-        case week = 1
-        case month = 2
-        case year = 3
+        case minute = 0
+        case day = 1
+        case week = 2
+        case month = 3
+        case year = 4
     }
-    func timeRange() -> TimeRange {
-        return TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-    }
+    var timeRange = TimeRange(rawValue: 0)!
     
     // -------------------------------------------------------------------------
     // IBAction handlers
@@ -100,6 +102,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     // Modify line chart whenever segment index changes
     @IBAction func segmentChanged(_ sender: Any) {
+        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
         plotLineChart(plotMode: PlotMode.initial)
     }
     
@@ -121,6 +124,8 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // Get x-axis labels based on the selected timeRange
     func getXLabels(timeRange: TimeRange) -> [String] {
         switch timeRange {
+        case .minute:
+            return (0...60).map({ String($0) })
         case .day:
             return ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM",
                     "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
@@ -168,14 +173,18 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     // Plot line chart given a time interval and values
     func plotLineChart(plotMode: PlotMode) {
-        let timeRange = self.timeRange()
         let xLabels = getXLabels(timeRange: timeRange)
         lineChartView.xAxis.valueFormatter =
             IndexAxisValueFormatter(values: xLabels)
         let values = getValues()
-        let dataEntries = values.map({ i -> ChartDataEntry in
-            i.toChartDataEntry(timeRange: timeRange)
-        })
+        var dataEntries = [ChartDataEntry]()
+        for dataPoint in values {
+            let cde = dataPoint.toChartDataEntry(timeRange: timeRange)
+            if !dataEntries.isEmpty && cde.x < dataEntries.last!.x {
+                dataEntries.removeAll()
+            }
+            dataEntries.append(cde)
+        }
         let dataSet = LineChartDataSet(values: dataEntries,
                                        label: "Bird 1 weight (g)")
         dataSet.colors = [ChartColorTemplates.liberty()[3]]
@@ -206,6 +215,10 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.labelRotationAngle = -45.0
         switch timeRange {
+        case .minute:
+            lineChartView.xAxis.granularity = 1.0
+            lineChartView.xAxis.labelCount = 13
+            lineChartView.xAxis.axisMaximum = 60.0
         case .day:
             lineChartView.xAxis.granularity = 1.0
             lineChartView.xAxis.labelCount = 9
@@ -229,7 +242,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         lineChartView.leftAxis.labelCount = LineChartViewController.YLABEL_COUNT
         lineChartView.leftAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.leftAxis.granularity = 1.0
-        let maxValue = values.reduce(0, { max($0, $1.toWeight()) })
+        let maxValue = dataEntries.reduce(0, { max($0, $1.y) })
         lineChartView.leftAxis.axisMaximum = (maxValue + 1).rounded(.towardZero)
  
         // Right y-axis
@@ -257,7 +270,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         case .initial:
             lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
         case .update:
-            lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 0.1)
+            lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 0.0001)
         }
         
         // Update graph with new changes
