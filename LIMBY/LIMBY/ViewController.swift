@@ -72,7 +72,7 @@ class DataQueue {
         return exists
     }
     
-    func subscribe(prefix : String){
+    func subscribe(prefix: String, lcvc: LineChartViewController){
         ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
             if let _ = error {
                 eprint (message: "could not subscribe to events")
@@ -83,6 +83,7 @@ class DataQueue {
                         if let eventData = event.data {
                             eprint(message: "got event with data \(eventData)")
                             self.queue.append(eventData)
+                            let _ = lcvc.update()
                         }
                     }
                     else{
@@ -101,7 +102,7 @@ class ViewController: UIViewController {
         let status : Bool = DataQueue.singleton.login(username: "peifeng2005@gmail.com", password: "peifeng2005")
         
         if status {
-            DataQueue.singleton.subscribe(prefix: "weight")
+            //DataQueue.singleton.subscribe(prefix: "weight")
         }
         else {
             eprint(message: "Unable to log in. Exiting.")
