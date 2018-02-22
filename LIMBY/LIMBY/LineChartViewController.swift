@@ -29,7 +29,7 @@ class ParticleDataPoint {
     }
     
     func toWeight() -> Double {
-        return 0.0011427 * self.value
+        return abs(0.0011427 * self.value)
     }
     
     func toChartDataEntry(timeRange: LineChartViewController.TimeRange) -> ChartDataEntry {
@@ -72,9 +72,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-        //let _ = DataQueue.singleton.login(
-        //    username: "peifeng2005@gmail.com", password: "peifeng2005")
-        //DataQueue.singleton.subscribe(prefix: "weight", lcvc: self)
+        DataQueue.singleton.subscribe(prefix: "weight", lcvc: self)
         plotLineChart(plotMode: PlotMode.initial)
     }
     
@@ -125,7 +123,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     func getXLabels(timeRange: TimeRange) -> [String] {
         switch timeRange {
         case .minute:
-            return (0...60).map({ String($0) })
+            return (0...60).map({ ":" + String($0) })
         case .day:
             return ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM",
                     "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
@@ -239,7 +237,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         
         // Left y-axis
         lineChartView.leftAxis.axisMinimum = 0.0
-        lineChartView.leftAxis.labelCount = LineChartViewController.YLABEL_COUNT
+        //lineChartView.leftAxis.labelCount = LineChartViewController.YLABEL_COUNT
         lineChartView.leftAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.leftAxis.granularity = 1.0
         let maxValue = dataEntries.reduce(0, { max($0, $1.y) })

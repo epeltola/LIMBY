@@ -35,18 +35,26 @@ class DataQueue {
         case logicError
     }
     
-    func login(username : String, password : String) -> Bool {
-        var success : Bool = true
+    func login(username : String, password : String, vc : ViewController) {
         ParticleCloud.sharedInstance().login(withUser: username, password: password) { (error:Error?) -> Void in
             if let _ = error {
                 eprint(message: "Wrong credentials or no internet connectivity, please try again")
-                success = false
+                self.handleErrorAuth(vc: vc)
             }
             else {
                 eprint(message: "Logged in")
+                self.segueToMainAuth(vc: vc)
             }
         }
-        return success
+    }
+    
+    func segueToMainAuth(vc : ViewController) -> Void {
+        let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
+        vc.navigationController?.pushViewController(graphViewController, animated: true)
+    }
+    
+    func handleErrorAuth(vc : ViewController) -> Void{
+        eprint(message: "Error!")
     }
     
     func checkExist(deviceName : String) -> Bool {
@@ -72,7 +80,7 @@ class DataQueue {
         return exists
     }
     
-    func subscribe(prefix: String, lcvc: LineChartViewController){
+    func subscribe(prefix : String, lcvc: LineChartViewController){
         ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
             if let _ = error {
                 eprint (message: "could not subscribe to events")
@@ -83,7 +91,7 @@ class DataQueue {
                         if let eventData = event.data {
                             eprint(message: "got event with data \(eventData)")
                             self.queue.append(eventData)
-                            let _ = lcvc.update()
+                            lcvc.update()
                         }
                     }
                     else{
@@ -97,23 +105,30 @@ class DataQueue {
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var ProjectName: UILabel!
+    @IBOutlet weak var Username: UITextField!
+    @IBOutlet weak var Password: UITextField!
+    @IBOutlet weak var LoginButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let status : Bool = DataQueue.singleton.login(username: "peifeng2005@gmail.com", password: "peifeng2005")
-        
-        if status {
-            //DataQueue.singleton.subscribe(prefix: "weight")
-        }
-        else {
-            eprint(message: "Unable to log in. Exiting.")
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func ConnectDevice(_ sender: UIButton) {
+        //authenticate input and go to main screen
+        DataQueue.singleton.login(username: Username.text!, password: Password.text!, vc: self)
+    }
+    
 
-
+    
+    
 }
+
+
 
