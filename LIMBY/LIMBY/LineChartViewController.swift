@@ -60,7 +60,6 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     static let CHART_FONT = UIFont.systemFont(ofSize: 11)
     static let LEGEND_SQUARE_SIZE = CGFloat(16)
     static let NATHANS_CONSTANT = CGFloat(17)
-    static let YLABEL_COUNT = 10
     
     // View did load actions
     override func viewDidLoad() {
@@ -72,8 +71,11 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-        DataQueue.singleton.subscribe(prefix: "weight", lcvc: self)
+        DataQueue.singleton.subscribe(prefix: "weight")
         plotLineChart(plotMode: PlotMode.initial)
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+            self.update()
+        }
     }
     
     // -------------------------------------------------------------------------
@@ -123,7 +125,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     func getXLabels(timeRange: TimeRange) -> [String] {
         switch timeRange {
         case .minute:
-            return (0...60).map({ ":" + String($0) })
+            return (0...60).map({ ":" + String(format: "%02d", $0) })
         case .day:
             return ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM",
                     "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
@@ -185,9 +187,9 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         }
         let dataSet = LineChartDataSet(values: dataEntries,
                                        label: "Bird 1 weight (g)")
-        dataSet.colors = [ChartColorTemplates.liberty()[3]]
+        dataSet.colors = [UIColor.black]
+        dataSet.circleColors = [UIColor.black]
         dataSet.axisDependency = .left
-        //dataSet.drawCirclesEnabled = false
         
         // Add data
         lineChartView.data = LineChartData(dataSet: dataSet)
@@ -208,6 +210,8 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         }
         
         // x-axis
+        lineChartView.xAxis.axisLineColor = UIColor.black
+        lineChartView.xAxis.axisLineWidth = 2.0
         lineChartView.xAxis.axisMinimum = 0.0
         lineChartView.xAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.xAxis.labelPosition = .bottom
@@ -236,12 +240,11 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Left y-axis
+        lineChartView.leftAxis.axisLineColor = UIColor.black
+        lineChartView.leftAxis.axisLineWidth = 2.0
         lineChartView.leftAxis.axisMinimum = 0.0
-        //lineChartView.leftAxis.labelCount = LineChartViewController.YLABEL_COUNT
         lineChartView.leftAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.leftAxis.granularity = 1.0
-        let maxValue = dataEntries.reduce(0, { max($0, $1.y) })
-        lineChartView.leftAxis.axisMaximum = (maxValue + 1).rounded(.towardZero)
  
         // Right y-axis
         lineChartView.rightAxis.enabled = false
@@ -268,7 +271,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         case .initial:
             lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
         case .update:
-            lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 0.0001)
+            lineChartView.animate(xAxisDuration: 0.0, yAxisDuration: 0.0)
         }
         
         // Update graph with new changes

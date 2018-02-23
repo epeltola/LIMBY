@@ -38,7 +38,12 @@ class DataQueue {
     func login(username : String, password : String, vc : ViewController) {
         ParticleCloud.sharedInstance().login(withUser: username, password: password) { (error:Error?) -> Void in
             if let _ = error {
-                eprint(message: "Wrong credentials or no internet connectivity, please try again")
+                let alert = UIAlertController(title: "Error", message:
+                    "Wrong credentials or no internet connectivity. Please" +
+                    " try again.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Dismiss",
+                    style: UIAlertActionStyle.default, handler: nil))
+                vc.present(alert, animated: true, completion: nil)
                 self.handleErrorAuth(vc: vc)
             }
             else {
@@ -80,10 +85,10 @@ class DataQueue {
         return exists
     }
     
-    func subscribe(prefix : String, lcvc: LineChartViewController){
+    func subscribe(prefix : String){
         ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
             if let _ = error {
-                eprint (message: "could not subscribe to events")
+                eprint (message: "Could not subscribe to events")
             } else {
                 let serialQueue = DispatchQueue(label: "getWeight")
                 serialQueue.async(execute: {
@@ -91,7 +96,6 @@ class DataQueue {
                         if let eventData = event.data {
                             eprint(message: "got event with data \(eventData)")
                             self.queue.append(eventData)
-                            lcvc.update()
                         }
                     }
                     else{
