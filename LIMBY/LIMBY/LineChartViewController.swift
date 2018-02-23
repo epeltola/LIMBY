@@ -195,7 +195,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         
         // Average line
         lineChartView.leftAxis.removeAllLimitLines()
-        let average = values.reduce(0, {$0 + $1.value}) / Double(values.count)
+        let average = values.reduce(0, {$0 + $1.toWeight()}) / Double(values.count)
         if average > 0.0 {
             let ll = ChartLimitLine(limit: average, label: "Average: " +
                                     String(format: "%.2f", average))
