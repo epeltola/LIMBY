@@ -34,10 +34,12 @@ class LIMBYTests: XCTestCase {
     }
     
     func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        // Requirement: Must update a point within 10 seconds.
+        DataQueue.singleton.login(username: "peifeng2005", password: "peifeng2005", vc: ViewController())
+        DataQueue.singleton.subscribe(prefix: "weight")
+        sleep(10)
+        var qc = DataQueue.singleton.queue.count
+        XCTAssert(qc > 0)
     }
     
 }

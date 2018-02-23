@@ -10,45 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LIMBYTests/LIMBYTests.swift"
-            timestampString = "541060810.335268"
+            timestampString = "541062532.776997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "testExample()"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "testPerformanceExample()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LIMBYTests.LIMBYTests.testExample() -&gt; ()"
-                  moduleName = "LIMBYTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dev/home/classes/cs130/LIMBY-iOS/LIMBY/LIMBYTests/LIMBYTests.swift"
-                  timestampString = "541060771.49832"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "585">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 : @autoclosure () throws -&gt; Swift.Bool in LIMBYTests.LIMBYTests.testExample() -&gt; ()"
-                  moduleName = "LIMBYTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dev/home/classes/cs130/LIMBY-iOS/LIMBY/LIMBYTests/LIMBYTests.swift"
-                  timestampString = "541060771.504792"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,13 +26,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LIMBYTests/LIMBYTests.swift"
-            timestampString = "541060810.33621"
+            timestampString = "541062532.777781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "testExample()"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "testPerformanceExample()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LIMBYTests.LIMBYTests.testPerformanceExample() -&gt; ()"
+                  moduleName = "LIMBYTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dev/home/classes/cs130/LIMBY-iOS/LIMBY/LIMBYTests/LIMBYTests.swift"
+                  timestampString = "541062488.673852"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "415">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #1 : @autoclosure () throws -&gt; Swift.Bool in LIMBYTests.LIMBYTests.testPerformanceExample() -&gt; ()"
+                  moduleName = "LIMBYTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dev/home/classes/cs130/LIMBY-iOS/LIMBY/LIMBYTests/LIMBYTests.swift"
+                  timestampString = "541062488.677655"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "14">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
