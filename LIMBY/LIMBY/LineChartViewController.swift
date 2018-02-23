@@ -145,9 +145,6 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         var data = [ParticleDataPoint]()
         for str in DataQueue.singleton.queue {
             let components = str.components(separatedBy: "\t")
-            if components.count != 2 {
-                continue
-            }
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss yyyy"
             if let date = dateFormatter.date(from: components[1]),

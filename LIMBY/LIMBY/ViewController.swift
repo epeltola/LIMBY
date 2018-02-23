@@ -95,7 +95,10 @@ class DataQueue {
                     if let event = eventOpt{
                         if let eventData = event.data {
                             eprint(message: "got event with data \(eventData)")
-                            self.queue.append(eventData)
+                            let components = eventData.components(separatedBy: "\t")
+                            if components.count == 2 {
+                                self.queue.append(eventData)
+                            }
                         }
                     }
                     else{

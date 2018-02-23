@@ -24,6 +24,13 @@ class LIMBYTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        DataQueue.singleton.login(username: "peifeng2005", password: "peifeng2005", vc: ViewController())
+        DataQueue.singleton.subscribe(prefix: "weight")
+        var vc : LineChartViewController = LineChartViewController()
+        sleep(15)
+        var qc = DataQueue.singleton.queue.count // queue count
+        var pc = vc.getValues().count // processed count
+        XCTAssert(qc == pc)
     }
     
     func testPerformanceExample() {
