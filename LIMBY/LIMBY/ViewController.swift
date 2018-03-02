@@ -28,7 +28,10 @@ func eprint(message : String) {
 class DataQueue {
     static let singleton = DataQueue()
     var queue : [String] = []
+    var subscription : Any?
     private init(){ /* Singletons should be private ctor'd */ }
+    
+    
     
     enum ParticleError: Error{
         case loginError
@@ -85,8 +88,9 @@ class DataQueue {
         return exists
     }
     
-    func subscribe(prefix : String){
-        ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
+    func subscribe(prefix : String) -> Any? {
+        var subscription : Any?
+        subscription = ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
             if let _ = error {
                 eprint (message: "Could not subscribe to events")
             } else {
@@ -107,6 +111,15 @@ class DataQueue {
                 })
             }
         })
+        self.subscription = subscription
+        return subscription
+    }
+    
+    func unsubscribe(){
+        if self.subscription != nil {
+            ParticleCloud.sharedInstance().unsubscribeFromEvent(withID: self.subscription!)
+            self.subscription = nil
+        }
     }
 }
 
