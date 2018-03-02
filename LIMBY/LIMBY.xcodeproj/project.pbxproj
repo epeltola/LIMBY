@@ -16,7 +16,7 @@
 		9A123C3B202435F400129008 /* LIMBYTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C3A202435F400129008 /* LIMBYTests.swift */; };
 		9A123C46202435F400129008 /* LIMBYUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C45202435F400129008 /* LIMBYUITests.swift */; };
 		9ADC9425202D7AE90006F684 /* LineChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADC9424202D7AE80006F684 /* LineChartViewController.swift */; };
-		D7F26CA62036BE5F00A9ED10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F26CA52036BE5F00A9ED10 /* ViewController.swift */; };
+		D7F26CA62036BE5F00A9ED10 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F26CA52036BE5F00A9ED10 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,7 @@
 		9A123C45202435F400129008 /* LIMBYUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIMBYUITests.swift; sourceTree = "<group>"; };
 		9A123C47202435F400129008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ADC9424202D7AE80006F684 /* LineChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartViewController.swift; sourceTree = "<group>"; };
-		D7F26CA52036BE5F00A9ED10 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D7F26CA52036BE5F00A9ED10 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,7 @@
 		9A123C21202435F300129008 /* LIMBY */ = {
 			isa = PBXGroup;
 			children = (
-				D7F26CA52036BE5F00A9ED10 /* ViewController.swift */,
+				D7F26CA52036BE5F00A9ED10 /* LoginViewController.swift */,
 				9ADC9424202D7AE80006F684 /* LineChartViewController.swift */,
 				9A123C22202435F300129008 /* AppDelegate.swift */,
 				9A123C26202435F300129008 /* Main.storyboard */,
@@ -354,7 +354,7 @@
 			files = (
 				9A123C23202435F300129008 /* AppDelegate.swift in Sources */,
 				9ADC9425202D7AE90006F684 /* LineChartViewController.swift in Sources */,
-				D7F26CA62036BE5F00A9ED10 /* ViewController.swift in Sources */,
+				D7F26CA62036BE5F00A9ED10 /* LoginViewController.swift in Sources */,
 				9A123C2B202435F300129008 /* LIMBY.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

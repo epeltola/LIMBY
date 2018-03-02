@@ -38,7 +38,7 @@ class DataQueue {
         case logicError
     }
     
-    func login(username : String, password : String, vc : ViewController) {
+    func login(username : String, password : String, vc : LoginViewController) {
         ParticleCloud.sharedInstance().login(withUser: username, password: password) { (error:Error?) -> Void in
             if let _ = error {
                 let alert = UIAlertController(title: "Error", message:
@@ -56,12 +56,12 @@ class DataQueue {
         }
     }
     
-    func segueToMainAuth(vc : ViewController) -> Void {
+    func segueToMainAuth(vc : LoginViewController) -> Void {
         let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
         vc.navigationController?.pushViewController(graphViewController, animated: true)
     }
     
-    func handleErrorAuth(vc : ViewController) -> Void{
+    func handleErrorAuth(vc : LoginViewController) -> Void{
         eprint(message: "Error!")
     }
     
@@ -123,7 +123,7 @@ class DataQueue {
     }
 }
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var ProjectName: UILabel!
     @IBOutlet weak var Username: UITextField!

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--LoginViewController-->
         <scene sceneID="JDF-hU-81u">
             <objects>
-                <viewController id="pSu-SS-q7W" customClass="ViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="LoginViewController" id="pSu-SS-q7W" customClass="LoginViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YZo-Ii-lgH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,7 +30,7 @@
                                 <color key="textColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CLK-KE-wsJ" userLabel="LoginInput">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CLK-KE-wsJ" userLabel="LoginInput">
                                 <rect key="frame" x="120" y="201" width="170" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -39,7 +39,7 @@
                                     <action selector="GetUsername:" destination="bND-km-8Vy" eventType="editingDidEnd" id="97L-Ec-gfu"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2d-V1-lHy" userLabel="PasswordInput">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2d-V1-lHy" userLabel="PasswordInput">
                                 <rect key="frame" x="120" y="241" width="170" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -55,6 +55,7 @@
                                     <constraint firstAttribute="width" constant="63" id="FoZ-zf-zDR"/>
                                     <constraint firstAttribute="height" constant="44" id="azu-mg-oCZ"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -106,10 +107,10 @@
             </objects>
             <point key="canvasLocation" x="423.75" y="384.50704225352115"/>
         </scene>
-        <!--Line Chart View Controller-->
+        <!--LineChartViewController-->
         <scene sceneID="1Pd-2v-cYp">
             <objects>
-                <viewController storyboardIdentifier="lineChartViewController" id="y3i-BN-iVI" customClass="LineChartViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="lineChartViewController" title="LineChartViewController" id="y3i-BN-iVI" customClass="LineChartViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kzg-1W-fof" customClass="LineChartView" customModule="Charts">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
