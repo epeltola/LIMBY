@@ -32,11 +32,13 @@ class ParticleDataPoint {
         return abs(0.0011427 * self.value)
     }
     
-    func toChartDataEntry(timeRange: LineChartViewController.TimeRange) -> ChartDataEntry {
+    func toChartDataEntry(timeRange: LineChartViewController.TimeRange)
+        -> ChartDataEntry {
         var x = 0.0
         switch timeRange {
         case .minute:
-            x = self.date.timeIntervalSince(daysAgo(0)).truncatingRemainder(dividingBy: 60.0)
+            x = self.date.timeIntervalSince(daysAgo(0))
+                .truncatingRemainder(dividingBy: 60.0)
         case .day:
             x = self.date.timeIntervalSince(daysAgo(0)) / 3600.0
         case .week:
@@ -47,6 +49,21 @@ class ParticleDataPoint {
             x = self.date.timeIntervalSince(daysAgo(365 - 1)) / 86400.0
         }
         return ChartDataEntry(x: x, y: self.toWeight())
+    }
+}
+
+class CustomBalloonMarker: BalloonMarker {
+    var decimals: Int = 2
+    
+    public override init(color: UIColor, font: UIFont, textColor: UIColor,
+                         insets: UIEdgeInsets) {
+        super.init(color: color, font: font, textColor: textColor,
+                   insets: insets)
+    }
+    
+    open override func refreshContent(entry: ChartDataEntry,
+                                      highlight: Highlight) {
+        setLabel(String(format: "%." + String(decimals) + "f", entry.y))
     }
 }
 
@@ -70,7 +87,8 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // View will appear actions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+        timeRange = TimeRange(
+            rawValue: segmentedController.selectedSegmentIndex)!
         DataQueue.singleton.subscribe(prefix: "weight")
         plotLineChart(plotMode: PlotMode.initial)
         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
@@ -113,7 +131,8 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     }
     // Modify line chart whenever segment index changes
     @IBAction func segmentChanged(_ sender: Any) {
-        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+        timeRange = TimeRange(
+            rawValue: segmentedController.selectedSegmentIndex)!
         plotLineChart(plotMode: PlotMode.initial)
     }
     
@@ -194,9 +213,11 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
             dataEntries.append(cde)
         }
         let dataSet = LineChartDataSet(values: dataEntries,
-                                       label: "Bird 1 weight (g)")
-        dataSet.colors = [UIColor.black]
-        dataSet.circleColors = [UIColor.black]
+                                       label: "Bird weight (g)")
+        dataSet.colors = [UIColor.gray]
+        dataSet.circleColors = [UIColor.gray]
+        dataSet.drawCircleHoleEnabled = false
+        dataSet.circleRadius = 4.0
         dataSet.axisDependency = .left
         
         // Add data
@@ -206,14 +227,15 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         
         // Average line
         lineChartView.leftAxis.removeAllLimitLines()
-        let average = values.reduce(0, {$0 + $1.toWeight()}) / Double(values.count)
+        let average =
+            dataEntries.reduce(0, { $0 + $1.y }) / Double(dataEntries.count)
         if average > 0.0 {
             let ll = ChartLimitLine(limit: average, label: "Average: " +
                                     String(format: "%.2f", average))
             ll.lineColor = UIColor.black
             ll.valueFont = LineChartViewController.CHART_FONT
             ll.lineWidth = 2
-            ll.labelPosition = .leftTop
+            ll.labelPosition = .rightTop
             lineChartView.leftAxis.addLimitLine(ll)
         }
         
@@ -273,6 +295,13 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         lineChartView.pinchZoomEnabled = false
         lineChartView.scaleXEnabled = false
         lineChartView.scaleYEnabled = false
+        let marker: BalloonMarker = CustomBalloonMarker(
+            color: UIColor.darkGray,
+            font: LineChartViewController.CHART_FONT,
+            textColor: UIColor.white,
+            insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
+        marker.minimumSize = CGSize(width: 35.0, height: 35.0)
+        lineChartView.marker = marker
         
         // Animate
         switch plotMode {
