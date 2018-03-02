@@ -121,8 +121,13 @@
                     <navigationItem key="navigationItem" id="zrK-Yr-N9D">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Disconnect" id="2xF-Hh-WXk"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="7yO-y6-be3">
+                            <connections>
+                                <action selector="unsubcribe:" destination="y3i-BN-iVI" id="lwg-kA-Z5g"/>
+                            </connections>
+                        </barButtonItem>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="snl-YE-BZZ" userLabel="segmentedController">
-                            <rect key="frame" x="38.5" y="7" width="243" height="30"/>
+                            <rect key="frame" x="59" y="7" width="227" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="Minute"/>

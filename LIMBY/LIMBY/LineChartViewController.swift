@@ -99,7 +99,18 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // -------------------------------------------------------------------------
     // IBAction handlers
     // -------------------------------------------------------------------------
+
     
+//    @IBAction func unsubscribe(_ sender: Any) {
+//        DataQueue.singleton.unsubscribe()
+//        print("unsubscribe")
+//    }
+    
+    @IBAction func unsubcribe(_ sender: Any) {
+        DataQueue.singleton.unsubscribe()
+        print("unsubscribe")
+        self.navigationController?.popViewController(animated: true)
+    }
     // Modify line chart whenever segment index changes
     @IBAction func segmentChanged(_ sender: Any) {
         timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
