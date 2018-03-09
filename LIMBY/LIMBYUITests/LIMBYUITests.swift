@@ -28,6 +28,28 @@ class LIMBYUITests: XCTestCase {
         super.tearDown()
     }
 
+    func testGoodLogin() {
+        let app = XCUIApplication()
+        let usernameTextField = app.textFields["Username"]
+        XCTAssertTrue(usernameTextField.exists)
+        usernameTextField.tap()
+        usernameTextField.typeText("peifeng2005@gmail.com")
+
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        XCTAssertTrue(passwordSecureTextField.exists)
+        passwordSecureTextField.tap()
+        passwordSecureTextField.typeText("peifeng2005")
+
+        app.buttons["Login"].tap()
+        let lineChartView = app.navigationBars["LIMBY.LineChartView"]
+        let exists = NSPredicate(format: "exists == 1")
+        
+        expectation(for: exists, evaluatedWith: lineChartView, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+
+        XCTAssertTrue(lineChartView.exists)
+    }
+
     func testBadLogin() {
         let app = XCUIApplication()
         app.buttons["Login"].tap()
