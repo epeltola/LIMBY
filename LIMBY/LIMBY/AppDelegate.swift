@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  LIMBY
 //
-//  Created by Nathan Tsai on 2/1/18.
-//  Copyright © 2018 Nathan Tsai. All rights reserved.
+//  Created by Team Memorydust on 2/1/18.
+//  Copyright © 2018 Team Memorydust. All rights reserved.
 //
 
 import UIKit

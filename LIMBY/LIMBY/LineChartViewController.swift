@@ -2,70 +2,13 @@
 //  LineChartViewController.swift
 //  LIMBY
 //
-//  Created by Nathan Tsai on 2/8/18.
-//  Copyright © 2018 Nathan Tsai. All rights reserved.
+//  Created by Team Memorydust on 2/8/18.
+//  Copyright © 2018 Team Memorydust. All rights reserved.
 //
 
 import Foundation
 import UIKit
 import Charts
-
-// Get Date object for the beginning of the day a specified number of days ago
-func daysAgo(_ days: Int) -> Date {
-    let cal = Calendar.current
-    return cal.date(byAdding: .day,
-                    value: -days,
-                    to: cal.startOfDay(for: Date()))!
-}
-
-// Represents a data point received from the perch
-class ParticleDataPoint {
-    let date: Date
-    let value: Double
-    
-    init(date: Date, value: Double) {
-        self.date = date
-        self.value = value
-    }
-    
-    func toWeight() -> Double {
-        return abs(0.0011427 * self.value)
-    }
-    
-    func toChartDataEntry(timeRange: LineChartViewController.TimeRange)
-        -> ChartDataEntry {
-        var x = 0.0
-        switch timeRange {
-        case .minute:
-            x = self.date.timeIntervalSince(daysAgo(0))
-                .truncatingRemainder(dividingBy: 60.0)
-        case .day:
-            x = self.date.timeIntervalSince(daysAgo(0)) / 3600.0
-        case .week:
-            x = self.date.timeIntervalSince(daysAgo(7 - 1)) / 86400.0
-        case .month:
-            x = self.date.timeIntervalSince(daysAgo(30 - 1)) / 86400.0
-        case .year:
-            x = self.date.timeIntervalSince(daysAgo(365 - 1)) / 86400.0
-        }
-        return ChartDataEntry(x: x, y: self.toWeight())
-    }
-}
-
-class CustomBalloonMarker: BalloonMarker {
-    var decimals: Int = 2
-    
-    public override init(color: UIColor, font: UIFont, textColor: UIColor,
-                         insets: UIEdgeInsets) {
-        super.init(color: color, font: font, textColor: textColor,
-                   insets: insets)
-    }
-    
-    open override func refreshContent(entry: ChartDataEntry,
-                                      highlight: Highlight) {
-        setLabel(String(format: "%." + String(decimals) + "f", entry.y))
-    }
-}
 
 class LineChartViewController: UIViewController, UITextFieldDelegate {
     
@@ -73,26 +16,27 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // Initialization
     // -------------------------------------------------------------------------
 
-    // Static class constants
     static let CHART_FONT = UIFont.systemFont(ofSize: 11)
+    static let CIRCLE_RADIUS = CGFloat(4.0)
+    static let FILTER_THRESHOLD = 0.75
     static let LEGEND_SQUARE_SIZE = CGFloat(16)
+    static let LINE_WIDTH = CGFloat(2.0)
     static let NATHANS_CONSTANT = CGFloat(17)
+    static let REFRESH_INTERVAL = 2.5
     
-    // View did load actions
     override func viewDidLoad() {
         super.viewDidLoad()
         lineChartView.noDataText = "No data available."
     }
     
-    // View will appear actions
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        timeRange = TimeRange(
-            rawValue: segmentedController.selectedSegmentIndex)!
-        DataQueue.singleton.subscribe(prefix: "weight")
+        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+        let _ = DataQueue.singleton.subscribe(prefix: "weight")
         plotLineChart(plotMode: PlotMode.initial)
-        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
-            self.update()
+        Timer.scheduledTimer(withTimeInterval:
+            LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
+            self.plotLineChart(plotMode: PlotMode.update)
         }
     }
     
@@ -100,89 +44,26 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // IBOutlet variables
     // -------------------------------------------------------------------------
     
-    // Line chart instance
     @IBOutlet var lineChartView: LineChartView!
-    
-    // Segment selector instance
     @IBOutlet weak var segmentedController: UISegmentedControl!
-    enum TimeRange: Int {
-        case minute = 0
-        case day = 1
-        case week = 2
-        case month = 3
-        case year = 4
-    }
+    
+    // TimeRange to reflect the state of the segmented controller.
     var timeRange = TimeRange(rawValue: 0)!
     
     // -------------------------------------------------------------------------
     // IBAction handlers
     // -------------------------------------------------------------------------
-
     
-//    @IBAction func unsubscribe(_ sender: Any) {
-//        DataQueue.singleton.unsubscribe()
-//        print("unsubscribe")
-//    }
-    
-    @IBAction func unsubcribe(_ sender: Any) {
+    @IBAction func unsubscribe(_ sender: Any) {
         DataQueue.singleton.unsubscribe()
-        print("unsubscribe")
+        DataQueue.singleton.queue.removeAll()
         self.navigationController?.popViewController(animated: true)
     }
-    // Modify line chart whenever segment index changes
+    
+    // Modify line chart whenever segment index changes.
     @IBAction func segmentChanged(_ sender: Any) {
-        timeRange = TimeRange(
-            rawValue: segmentedController.selectedSegmentIndex)!
+        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
         plotLineChart(plotMode: PlotMode.initial)
-    }
-    
-    // -------------------------------------------------------------------------
-    // Helper functions
-    // -------------------------------------------------------------------------
-    
-    // Get the specified number of past dates in [MM/DD] format
-    func getPastDates(days: Int) -> [String] {
-        let cal = Calendar.current
-        let startDate = daysAgo(days - 1)
-        return (0...days).map({ i -> String in
-            let date = cal.date(byAdding: .day, value: i, to: startDate)!
-            return String(cal.component(.month, from: date)) + "/" +
-                   String(cal.component(.day, from: date))
-        })
-    }
-    
-    // Get x-axis labels based on the selected timeRange
-    func getXLabels(timeRange: TimeRange) -> [String] {
-        switch timeRange {
-        case .minute:
-            return (0...60).map({ ":" + String(format: "%02d", $0) })
-        case .day:
-            return ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM",
-                    "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
-                    "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM",
-                    "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 AM"]
-        case .week:
-            return getPastDates(days: 7)
-        case .month:
-            return getPastDates(days: 30)
-        case .year:
-            return getPastDates(days: 365)
-        }
-    }
-    
-    // Get values from Particle device
-    func getValues() -> [ParticleDataPoint] {
-        var data = [ParticleDataPoint]()
-        for str in DataQueue.singleton.queue {
-            let components = str.components(separatedBy: "\t")
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss yyyy"
-            if let date = dateFormatter.date(from: components[1]),
-               let value = Double(components[0]) {
-                data.append(ParticleDataPoint(date: date, value: value))
-            }
-        }
-        return data
     }
     
     // -------------------------------------------------------------------------
@@ -194,84 +75,85 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         case update
     }
     
-    func update() {
-        plotLineChart(plotMode: PlotMode.update)
-    }
-    
     // Plot line chart given a time interval and values
     func plotLineChart(plotMode: PlotMode) {
+        
+        // Set up x-axis labels.
         let xLabels = getXLabels(timeRange: timeRange)
-        lineChartView.xAxis.valueFormatter =
-            IndexAxisValueFormatter(values: xLabels)
-        let values = getValues()
+        lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xLabels)
+        
+        // Prepare data entries.
         var dataEntries = [ChartDataEntry]()
-        for dataPoint in values {
+        for dataPoint in getValues() {
             let cde = dataPoint.toChartDataEntry(timeRange: timeRange)
             if !dataEntries.isEmpty && cde.x < dataEntries.last!.x {
                 dataEntries.removeAll()
             }
             dataEntries.append(cde)
         }
-        let dataSet = LineChartDataSet(values: dataEntries,
-                                       label: "Bird weight (g)")
-        dataSet.colors = [UIColor.gray]
-        dataSet.circleColors = [UIColor.gray]
-        dataSet.drawCircleHoleEnabled = false
-        dataSet.circleRadius = 4.0
-        dataSet.axisDependency = .left
         
-        // Add data
+        // Create data set.
+        let dataSet = LineChartDataSet(values: dataEntries, label: "Bird weight (g)")
+        dataSet.axisDependency = .left
+        dataSet.circleColors = [UIColor.gray]
+        dataSet.circleRadius = LineChartViewController.CIRCLE_RADIUS
+        dataSet.colors = [UIColor.gray]
+        dataSet.drawCircleHoleEnabled = false
+        
+        // Add data set to view.
         lineChartView.data = LineChartData(dataSet: dataSet)
         lineChartView.data!.setDrawValues(false)
-        lineChartView.data!.setValueFont(LineChartViewController.CHART_FONT)
         
-        // Average line
+        // Draw average line
         lineChartView.leftAxis.removeAllLimitLines()
-        let average =
-            dataEntries.reduce(0, { $0 + $1.y }) / Double(dataEntries.count)
-        if average > 0.0 {
-            let ll = ChartLimitLine(limit: average, label: "Average: " +
-                                    String(format: "%.2f", average))
-            ll.lineColor = UIColor.black
-            ll.valueFont = LineChartViewController.CHART_FONT
-            ll.lineWidth = 2
+        let initial_avg = dataEntries.reduce(0, { $0 + $1.y }) / Double(dataEntries.count)
+        for entry in dataEntries {
+            if entry.y < LineChartViewController.FILTER_THRESHOLD * initial_avg {
+                entry.y = 0
+            }
+        }
+        let dataEntries_filtered = dataEntries.filter({ $0.y > 0.0 })
+        let filtered_avg = dataEntries_filtered.reduce(0, { $0 + $1.y }) / Double(dataEntries_filtered.count)
+        if filtered_avg > 0.0 {
+            let ll = ChartLimitLine(limit: filtered_avg, label: "Average: " +
+                                    String(format: "%.2f", filtered_avg))
             ll.labelPosition = .rightTop
+            ll.lineColor = UIColor.black
+            ll.lineWidth = 2
+            ll.valueFont = LineChartViewController.CHART_FONT
             lineChartView.leftAxis.addLimitLine(ll)
         }
         
         // x-axis
         lineChartView.xAxis.axisLineColor = UIColor.black
-        lineChartView.xAxis.axisLineWidth = 2.0
+        lineChartView.xAxis.axisLineWidth = LineChartViewController.LINE_WIDTH
         lineChartView.xAxis.axisMinimum = 0.0
         lineChartView.xAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.labelRotationAngle = -45.0
         switch timeRange {
         case .minute:
-            lineChartView.xAxis.granularity = 1.0
-            lineChartView.xAxis.labelCount = 13
+            lineChartView.xAxis.granularity = 5.0
             lineChartView.xAxis.axisMaximum = 60.0
         case .day:
-            lineChartView.xAxis.granularity = 1.0
-            lineChartView.xAxis.labelCount = 9
+            lineChartView.xAxis.granularity = 3.0
             lineChartView.xAxis.axisMaximum = 24.0
         case .week:
             lineChartView.xAxis.granularity = 1.0
-            lineChartView.xAxis.labelCount = 7
-            lineChartView.xAxis.axisMaximum = 7.0
+            lineChartView.xAxis.axisMaximum = Double(daysIn(timeRange))
         case .month:
             lineChartView.xAxis.granularity = 5.0
-            lineChartView.xAxis.labelCount = 7
-            lineChartView.xAxis.axisMaximum = 30.0
+            lineChartView.xAxis.axisMaximum = Double(daysIn(timeRange))
         case .year:
-            lineChartView.xAxis.granularity = 1.0
-            lineChartView.xAxis.labelCount = 12
-            lineChartView.xAxis.axisMaximum = 365.0
+            lineChartView.xAxis.granularity = 30.0
+            lineChartView.xAxis.axisMaximum = Double(daysIn(timeRange))
         }
+        lineChartView.xAxis.labelCount = Int(lineChartView.xAxis.axisMaximum /
+            lineChartView.xAxis.granularity)
         
         // Left y-axis
         lineChartView.leftAxis.axisLineColor = UIColor.black
-        lineChartView.leftAxis.axisLineWidth = 2.0
+        lineChartView.leftAxis.axisLineWidth = LineChartViewController.LINE_WIDTH
         lineChartView.leftAxis.axisMinimum = 0.0
         lineChartView.leftAxis.labelFont = LineChartViewController.CHART_FONT
         lineChartView.leftAxis.granularity = 1.0
@@ -292,16 +174,10 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
         
         // Interaction
         lineChartView.backgroundColor = UIColor.white
+        lineChartView.marker = CustomBalloonMarker()
         lineChartView.pinchZoomEnabled = false
         lineChartView.scaleXEnabled = false
         lineChartView.scaleYEnabled = false
-        let marker: BalloonMarker = CustomBalloonMarker(
-            color: UIColor.darkGray,
-            font: LineChartViewController.CHART_FONT,
-            textColor: UIColor.white,
-            insets: UIEdgeInsets(top: 7.0, left: 7.0, bottom: 7.0, right: 7.0))
-        marker.minimumSize = CGSize(width: 35.0, height: 35.0)
-        lineChartView.marker = marker
         
         // Animate
         switch plotMode {

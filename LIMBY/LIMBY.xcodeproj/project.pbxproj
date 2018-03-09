@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2463267120525C5600753A58 /* LineChartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2463267020525C5600753A58 /* LineChartHelper.swift */; };
 		248668DD20492D960013C28E /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248668DC20492D950013C28E /* BalloonMarker.swift */; };
 		5B6C90674B80BECF696B12BD /* Pods_LIMBY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */; };
 		9A123C23202435F300129008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C22202435F300129008 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2463267020525C5600753A58 /* LineChartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartHelper.swift; sourceTree = "<group>"; };
 		248668DC20492D950013C28E /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		48E95F57CB4925E6BD26D6F5 /* Pods-LIMBY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.debug.xcconfig"; sourceTree = "<group>"; };
 		74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LIMBY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 				9A123C2E202435F300129008 /* LaunchScreen.storyboard */,
 				9A123C31202435F300129008 /* Info.plist */,
 				9A123C29202435F300129008 /* LIMBY.xcdatamodeld */,
+				2463267020525C5600753A58 /* LineChartHelper.swift */,
 			);
 			path = LIMBY;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2463267120525C5600753A58 /* LineChartHelper.swift in Sources */,
 				9A123C23202435F300129008 /* AppDelegate.swift in Sources */,
 				9ADC9425202D7AE90006F684 /* LineChartViewController.swift in Sources */,
 				D7F26CA62036BE5F00A9ED10 /* LoginViewController.swift in Sources */,
